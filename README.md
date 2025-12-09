@@ -45,3 +45,17 @@ I parsed all the data into vectors. First vector contains lists of numbers in ea
 
 Part 2:  
 A different approach was needed. Instead of parsing the numbers, I slowly iterated through each column, storing the number in a vector. When I reach a column of with no numbers, I will proceed to add or multiple the numbers in the vector, and adding it to the total count. A last check is needed for the last column as there is no empty column to trigger the combination.
+
+### Day 7
+Part 1:  
+A array was used to store the state of the beam using 0s and 1s. when a beam hits a splitter, the position on the left and right will become 1, and the position in the middle will become zero. This keeps track of beam positions. A counter will increment when a beam hits the splitter.
+
+Part 2:  
+Using a similar concept, except now the array means the number of ways the beam can reach that position. So when the beam hits a splitter, its value will be added to the left and right, while the middle becomes zero.
+
+### Day 8
+Part 1:  
+When parsing the input, each coordinate is given an index based on its position in the input file. While computing all possible distances, the information is stored as an array of [distance, coordinate 1, coordinate 2]. The vector id distances is sorted and the first 10/1000 is used. To determine whether the coordinates are connected, I created an array of indexes. The numbers at index 0 means are the numbers coordinate 0 is linked with. (If the 0th index is {2, 5, 6}, it means that there are connections 0-2, 0-5, 0-6. The 5th index will also have the number 0). When all connections are keyed in, a loop will merge the links together. (Since the loop starts from 0, where the numbers are {2, 5, 6}, it will head to the 2nd postion. If the 2nd position contains {0, 4}, it will absorb the unique numbers, excluding itself (0). Then it delete all numbers from the 2nd position. Afterwards, it heads to position 5, then 6, then 4, which was added earlier. By the time the loops ends, all numbers connected to 0 will be at position 0. Then it will head off to the next non-empty position, which will be a different circuit). After the processing, the size is calculated.
+
+Part 2:  
+So the above method will not work for this (it works but the complexity is too high). For this part, more graph theory-ish terminology will be used. The same array, albeit renamed, [distance, vertex 1, vertex 2] will be used. An empty global vector "graph" is used to keep track of the connectedness. If both vertices are in the graph, then check if they are in the same subgraph (subgraphs are not connected, i.e. 1-3, 2-4). If yes, I am essentially creating a cycle, no further processing is needed. If no, that means that the vertices will be a bridge between the two subgraphs, and hence the two subgraphs will be merged. If only one of the vertices are in the graph, then add the other vertex into the same subgraph. If non of the vertices are in the graph, then create a new subgraph with both vertices. The algorithm will stop when the graph consist only only 1 subgraph, with a size equal to the number of inputs. You can also use this solution for part 1 (probably).
