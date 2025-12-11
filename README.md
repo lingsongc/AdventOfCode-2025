@@ -104,9 +104,11 @@ Code is written in c++.
   <summary><h3>Day 9</h3></summary>
   <p>
     Part 1:  
+    Just simply calculating every possible rectangle (and its area), and taking the largest.
   </p>
   <p>
     Part 2:  
+    This had me questioning life :). My method is to first compress the coordinates to make the grid size smaller, then creating a diagram by first drawing the outline, the flood filling the outside. Afterwards, just added an additional check to check for valid rectangles by comparing it with the diagram before even considering it as the biggest area. (The explanantion is so short but actually implementing the code was a nightmare) ((Also there can totally be more efficient ways to doing what I did, or the code can be written better, but at least the code is 100% mine, not the idea though))
   </p>
 </details>
 
